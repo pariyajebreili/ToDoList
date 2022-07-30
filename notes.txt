@@ -1,0 +1,29 @@
+-def str(self): 
+ is a python method which is called when we use print/str to convert object into a string. 
+ It is predefined , however can be customised.
+'''
+from django.db import models
+
+class Person(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return '%s %s' % (self.first_name, self.last_name)
+'''
+
+
+
+-Meta inner class in Django models:
+This is just a class container with some options (metadata) attached to the model. 
+It defines such things as available permissions, associated database table name, whether the model is abstract or not, 
+singular and plural versions of the name etc.
+
+Ordering is basically used to change the order of your model fields.
+
+'''
+class student(models.Model):
+  class Meta:
+      ordering = [-1]
+'''
+
