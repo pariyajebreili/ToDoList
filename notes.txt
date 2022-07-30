@@ -27,6 +27,5 @@ class student(models.Model):
       ordering = [-1]
 '''
 
-asdga
-dg
 
+agafhadf
