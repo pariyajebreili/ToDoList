@@ -1,4 +1,7 @@
--def str(self): 
+#first we create views after that add to urls.py and change/add html file
+
+
+# def str(self): 
  is a python method which is called when we use print/str to convert object into a string. 
  It is predefined , however can be customised.
 '''
@@ -14,7 +17,7 @@ class Person(models.Model):
 
 
 
--Meta inner class in Django models:
+#Meta inner class in Django models:
 This is just a class container with some options (metadata) attached to the model. 
 It defines such things as available permissions, associated database table name, whether the model is abstract or not, 
 singular and plural versions of the name etc.
