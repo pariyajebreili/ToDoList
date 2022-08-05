@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView, View
 from .models import Task
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView
@@ -65,10 +65,9 @@ class TaskCreate(LoginRequiredMixin, CreateView):
     template_name = 'base/task_form.html'
     success_url = reverse_lazy('tasks')
 
-    def form_invalid(self, form) :
+    def form_valid(self, form):
         form.instance.user = self.request.user
-        return super(TaskCreate, self).form_invalid(form)
-
+        return super(TaskCreate, self).form_valid(form)
 
 class TaskUpdate(LoginRequiredMixin, UpdateView):
     model = Task
@@ -82,3 +81,18 @@ class DeleteView(LoginRequiredMixin, DeleteView):
     context_object_name = 'task'
     template_name = 'base/task_confirm_delete.html'
     success_url = reverse_lazy('tasks')
+
+
+
+
+class TaskReorder(View):
+    def post(self, request):
+        form = PositionForm(request.POST)
+
+        if form.is_valid():
+            positionList = form.cleaned_data["position"].split(',')
+
+            with transaction.atomic():
+                self.request.user.set_task_order(positionList)
+
+        return redirect(reverse_lazy('tasks'))
